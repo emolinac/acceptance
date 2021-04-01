@@ -1,2 +1,3 @@
-# acceptance
-Parallel acceptance 
+ Acceptance
+ 
+ 
