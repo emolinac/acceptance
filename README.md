@@ -10,6 +10,8 @@ Ultimate Acceptance
 
 Each entry of the Tuple must contain the bin of the variable and the kinematical limits of that bin.
 
+-Simulations that contains two tuples called **ntuple_accept** and **ntuple_thrown**. The name format of the simul must be **target1_simul.root**. Ex: D1_simul.root, C1_simul.root
+
 **How to use:**
 
 -Change addresses in the bash script called _parallel_ .
