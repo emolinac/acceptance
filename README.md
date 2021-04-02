@@ -1,4 +1,6 @@
-Ultimate Acceptance
+**ULTIMATE ACCEPTANCE**
+
+This is a code that calculates acceptance in parallel form. It is very fast (~3 seconds per five dimensional factor). According to the number of bins you have use the version that suits you the most.
 
 **Requirements:**
 
@@ -14,6 +16,6 @@ Each entry of the Tuple must contain the bin of the variable and the kinematical
 
 **How to use:**
 
--Change addresses in the bash script called _parallel_ .
+-Change addresses in the bash script called _parallel_ according to your locations.
 
 -Execute the _parallel_ file according to the variables you want to parallelize. The codes ending in _Q2Nu_ parallelize those two variables. Then you will have NQ2 * NNU jobs sent. Same story for the _Q2NuZh_ version.
