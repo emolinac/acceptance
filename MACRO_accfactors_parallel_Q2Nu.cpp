@@ -1,6 +1,6 @@
 void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t N_Pt2, Int_t N_Phi, Int_t Q2_bin_selected, Int_t Nu_bin_selected, TString material, Int_t nSimuFiles, TString fsimul_loc, TString facc_target_loc, TString fbin_source_loc)
 {
-  /*FILES CUTS*/
+  //TARGET CUTS
   TCut Target_cut2;
   if(material=="D"){Target_cut2 = "TargType==1";}
   else{Target_cut2 = "TargType==2";}
@@ -16,7 +16,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
   TNtuple* reconstructed = (TNtuple*) fsimul->Get("ntuple_accept");
   TNtuple* thrown        = (TNtuple*) fsimul->Get("ntuple_thrown");
 
-  /*GETTING THE BIN LIMITS TUPLE*/
+  //GETTING THE BIN LIMITS TUPLE
   TNtuple* limits_tuple = (TNtuple*) fbin_source->Get("limits_tuple");
   Float_t Q2_bin_min, Q2_bin_max,Nu_bin_min, Nu_bin_max,Zh_bin_min, Zh_bin_max,Pt2_bin_min, Pt2_bin_max,Phi_bin_min, Phi_bin_max;
   Float_t Q2_bin, Nu_bin, Zh_bin, Pt2_bin, Phi_bin;
@@ -98,7 +98,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
       if(Q2_bin==Q2_bin_selected&&Nu_bin==Nu_bin_selected)
 	{
 	  t_loop.Start();
-	  /*SETTING THE CUTS*/
+	  //SETTING REMAINING CUTS
 	  Zh_cut     = Form("Zh>%f && Zh<%f", Zh_bin_min , Zh_bin_max);
 	  Pt2_cut    = Form("Pt2>%f && Pt2<%f", Pt2_bin_min , Pt2_bin_max);
 	  Phi_cut    = Form("PhiPQ>%f && PhiPQ<%f", Phi_bin_min , Phi_bin_max);
@@ -106,7 +106,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
 
 	  std::cout<<"The cuts are: "<<cuts_loop<<std::endl;
 
-	  /*CALCULATING THE EVENTS AND ACCEPTANCE*/
+	  //CALCULATING THE EVENTS AND ACCEPTANCE
 	  Double_t N_THR = thrown->GetEntries(cuts_loop);
 	  if(N_THR == 0){
 	    std::cout<<"Null thr found! NEXT!"<<std::endl;
@@ -117,7 +117,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
 
 	  Double_t acc_factor = N_REC/N_THR;
 
-	  /*CALCULATING THE ERRORS*/
+	  //CALCULATING THE ERRORS
 	  //REC ERROR
 	  Double_t rec_error = TMath::Sqrt(N_REC);
 	  //THR ERROR
@@ -125,7 +125,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
 	  //ACC ERROR
 	  Double_t acc_error = acc_factor*TMath::Sqrt(TMath::Power(rec_error/N_REC,2) + TMath::Power(thr_error/N_THR,2));
 
-	  /*WRITE THE FACTORS ON THE TUPLE*/
+	  //WRITE THE FACTORS ON THE TUPLE
 	  accfactors_tuple->Fill(Q2_bin,Nu_bin,Zh_bin,Pt2_bin,Phi_bin,acc_factor,acc_error,N_REC,N_THR);
 	  t_loop.Stop();
 	  t_loop.Print();
@@ -141,7 +141,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
       if(Q2_bin==Q2_bin_selected&&Nu_bin==Nu_bin_selected)
 	{
 	  t_loop.Start();
-	  /*SETTING THE CUTS*/
+	  //SETTING REMAINING CUTS
 	  Zh_cut     = Form("Zh>%f && Zh<%f", Zh_bin_min , Zh_bin_max);
 	  Pt2_cut    = Form("Pt2>%f && Pt2<%f", Pt2_bin_min , Pt2_bin_max);
 	  Phi_cut    = Form("PhiPQ>%f && PhiPQ<%f", Phi_bin_min , Phi_bin_max);
@@ -150,7 +150,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
 
 	  std::cout<<"The cuts are: "<<cuts_Xf_loop<<std::endl;
 
-	  /*CALCULATING THE EVENTS AND ACCEPTANCE*/
+	  //CALCULATING THE EVENTS AND ACCEPTANCE
 	  Double_t N_THR_Xf = thrown->GetEntries(cuts_Xf_loop);
 	  if(N_THR_Xf == 0){
 	    std::cout<<"Null thr found! NEXT!"<<std::endl;
@@ -162,7 +162,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
 
 	  Double_t acc_factor_Xf = N_REC_Xf/N_THR_Xf;
 
-	  /*CALCULATING THE ERRORS*/
+	  //CALCULATING THE ERRORS
 	  //REC ERROR XF
 	  Double_t rec_error_Xf = TMath::Sqrt(N_REC_Xf);
 	  //THR ERROR XF
@@ -170,7 +170,7 @@ void MACRO_accfactors_parallel_Q2NuZh(Int_t N_Q2, Int_t N_Nu, Int_t N_Zh, Int_t 
 	  //ACC ERROR XF
 	  Double_t acc_error_Xf = acc_factor_Xf*TMath::Sqrt(TMath::Power(rec_error_Xf/N_REC_Xf,2) + TMath::Power(thr_error_Xf/N_THR_Xf,2));
 
-	  /*WRITE THE FACTORS ON THE TUPLE*/
+	  //WRITE THE FACTORS ON THE TUPLE
 	  accfactors_Xf_tuple->Fill(Q2_bin,Nu_bin,Zh_bin,Pt2_bin,Phi_bin,acc_factor_Xf,acc_error_Xf,N_REC_Xf,N_THR_Xf);
 	  t_loop.Stop();
 	  t_loop.Print();
