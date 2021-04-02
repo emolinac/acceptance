@@ -2,6 +2,8 @@
 
 This is a code that calculates acceptance in parallel form. It is very fast (~3 seconds per five dimensional factor). According to the number of bins you have use the version that suits you the most.
 
+Produces two tuples per file, one with acceptance factors with Xf cut, and other without Xf cut.
+
 **Requirements:**
 
 -ROOT
